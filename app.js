@@ -19,13 +19,14 @@ mongoose.connection.on('error', console.log);
 
 app.use(morgan('dev'));
 app.use(express.json());
+console.log(process.env.CLIENT);
 app.use(cors({
   origin: process.env.CLIENT || 'http://localhost:5173',
   credentials: true
 }));
 
 const store = MongoStore.create({ client: mongoose.connection.getClient() });
-
+console.log(process.env.SESSION_SECRET)
 app.use(
   session({
     secret: process.env.SESSION_SECRET || 'my session secret',

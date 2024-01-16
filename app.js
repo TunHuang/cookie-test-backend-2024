@@ -30,7 +30,7 @@ console.log(process.env.SESSION_SECRET)
 const cookieOptions = {
   httpOnly: true,
       secure: app.get('env') === 'production',
-      sameSite: app.get('env') === 'production' ? 'none' : 'lax',
+      sameSite: app.get('env') === 'production' ? 'None' : 'Lax',
 }
 console.log(cookieOptions)
 app.use(

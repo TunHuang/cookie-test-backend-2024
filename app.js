@@ -34,6 +34,7 @@ const cookieOptions = {
   httpOnly: true,
   secure: app.get('env') === 'production',
   sameSite: app.get('env') === 'production' ? 'None' : 'Lax',
+  maxAge: 5 * 60 * 1000
 };
 console.log(cookieOptions);
 app.use(

@@ -37,6 +37,7 @@ const cookieOptions = {
   maxAge: 5 * 60 * 1000
 };
 console.log(cookieOptions);
+app.set('trust proxy', 1);
 app.use(
   session({
     secret: process.env.SESSION_SECRET || 'my session secret',

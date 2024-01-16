@@ -20,19 +20,22 @@ mongoose.connection.on('error', console.log);
 app.use(morgan('dev'));
 app.use(express.json());
 console.log(process.env.CLIENT);
-app.use(cors({
-  origin: process.env.CLIENT || 'http://localhost:5173',
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: process.env.CLIENT || 'http://localhost:5173',
+    credentials: true,
+  })
+);
 
 const store = MongoStore.create({ client: mongoose.connection.getClient() });
-console.log(process.env.SESSION_SECRET)
+console.log(process.env.SESSION_SECRET);
 const cookieOptions = {
+  name: 'session-prep',
   httpOnly: true,
-      secure: app.get('env') === 'production',
-      sameSite: app.get('env') === 'production' ? 'None' : 'Lax',
-}
-console.log(cookieOptions)
+  secure: app.get('env') === 'production',
+  sameSite: app.get('env') === 'production' ? 'None' : 'Lax',
+};
+console.log(cookieOptions);
 app.use(
   session({
     secret: process.env.SESSION_SECRET || 'my session secret',

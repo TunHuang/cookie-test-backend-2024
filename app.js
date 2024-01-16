@@ -27,17 +27,19 @@ app.use(cors({
 
 const store = MongoStore.create({ client: mongoose.connection.getClient() });
 console.log(process.env.SESSION_SECRET)
+const cookieOptions = {
+  httpOnly: true,
+      secure: app.get('env') === 'production',
+      sameSite: app.get('env') === 'production' ? 'none' : 'lax',
+}
+console.log(cookieOptions)
 app.use(
   session({
     secret: process.env.SESSION_SECRET || 'my session secret',
     resave: false,
     saveUninitialized: false,
     store,
-    cookie: {
-      httpOnly: true,
-      secure: app.get('env') === 'production',
-      sameSite: app.get('env') === 'production' ? 'none' : 'lax',
-    },
+    cookie: cookieOptions,
   })
 );
 

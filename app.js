@@ -19,7 +19,6 @@ mongoose.connection.on('error', console.log);
 
 app.use(morgan('dev'));
 app.use(express.json());
-console.log(process.env.CLIENT);
 app.use(
   cors({
     origin: process.env.CLIENT || 'http://localhost:5173',
@@ -28,15 +27,12 @@ app.use(
 );
 
 const store = MongoStore.create({ client: mongoose.connection.getClient() });
-console.log(process.env.SESSION_SECRET);
 const cookieOptions = {
-  name: 'session-prep',
   httpOnly: true,
   secure: app.get('env') === 'production',
   sameSite: app.get('env') === 'production' ? 'None' : 'Lax',
   maxAge: 5 * 60 * 1000
 };
-console.log(cookieOptions);
 app.set('trust proxy', 1);
 app.use(
   session({
